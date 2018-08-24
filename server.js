@@ -1,4 +1,4 @@
-// https://medium.com/@shubhsharma10/how-to-deploy-angular-6-app-to-heroku-52b73ac7a3aa
+// https://medium.com/@hellotunmbi/how-to-deploy-angular-application-to-heroku-1d56e09c5147
 
 const express = require('express');
 const path = require('path');
