@@ -1,0 +1,13 @@
+<mat-toolbar>
+  <button mat-icon-button routerLink="/dashboard">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h2>
+    {{ todo.name }}
+  </h2>
+</mat-toolbar>
+<mat-tab-group>
+  <mat-tab *ngFor="let tab of todo.tabs" label="{{ tab.name }}">
+    <app-todo-tab [tab]="tab"></app-todo-tab>
+  </mat-tab>
+</mat-tab-group>

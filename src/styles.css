@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body, app-root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+app-root {
+  display: block;
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+}
+
+.flex {
+  flex: 1 1 auto;
+}

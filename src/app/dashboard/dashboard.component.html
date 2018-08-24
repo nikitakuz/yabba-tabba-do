@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <span>
+    Yabba-tabba-do!
+  </span>
+  <span class="flex"></span>
+  <button mat-icon-button>
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-nav-list>
+  <mat-list-item *ngFor="let todo of todos"
+                 routerLink="/todo/{{todo.id}}">
+    {{ todo.name }}
+  </mat-list-item>
+</mat-nav-list>
