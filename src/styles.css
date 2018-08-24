@@ -11,10 +11,12 @@ body {
 }
 
 app-root {
+  position: relative;
   display: block;
   max-width: 600px;
   margin: 0 auto;
   background: white;
+  overflow: hidden;
 }
 
 .flex {
