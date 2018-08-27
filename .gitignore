@@ -40,7 +40,4 @@ Thumbs.db
 
 #environment
 src/environments/environment.ts
-<<<<<<< HEAD
 src/environments/environment.prod.ts
-=======
->>>>>>> f688a1dc4d5737f73fd069db235f96151b392298
