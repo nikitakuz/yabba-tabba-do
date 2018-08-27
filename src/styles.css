@@ -22,3 +22,9 @@ app-root {
 .mat-tab-body-wrapper {
   height: 100%;
 }
+
+/* complicated override for clearing background on focused tab if the tab is not selected.
+   this is necessary because user can swipe between tabs with help from hammerjs */
+.mat-tab-group.mat-primary .mat-tab-label.cdk-focused:not(.cdk-mouse-focused):not(.cdk-tab-disabled):not(.mat-tab-label-active) {
+  background: none;
+}
