@@ -17,8 +17,10 @@ export class TodoComponent implements OnInit {
   @HostBinding('style.display')   display = 'block';
   @HostBinding('style.position')  position = 'absolute';
   @HostBinding('style.width')     width = '100%';
+  @HostBinding('style.height')    height = '100%';
 
   @Input() todo: Todo;
+  @Input() selectedTab = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,5 +36,21 @@ export class TodoComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.todoService.getTodo(id)
       .subscribe(todo => this.todo = todo);
+  }
+
+  nextTab() {
+    if (this.selectedTab < this.todo.tabs.length - 1) {
+      this.selectedTab++;
+    }
+  }
+
+  prevTab() {
+    if (this.selectedTab > 0) {
+      this.selectedTab--;
+    }
+  }
+
+  onSelectedIndexChange(selectedTab: number) {
+    this.selectedTab = selectedTab;
   }
 }

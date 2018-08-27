@@ -1,13 +1,17 @@
-<mat-toolbar>
-  <button mat-icon-button routerLink="/dashboard">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
-  <h2>
-    {{ todo.name }}
-  </h2>
-</mat-toolbar>
-<mat-tab-group>
-  <mat-tab *ngFor="let tab of todo.tabs" label="{{ tab.name }}">
-    <app-todo-tab [tab]="tab"></app-todo-tab>
-  </mat-tab>
-</mat-tab-group>
+<div fxLayout="column" style="height: 100%">
+    <mat-toolbar>
+      <button mat-icon-button routerLink="/dashboard">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h2>
+        {{ todo.name }}
+      </h2>
+    </mat-toolbar>
+    <mat-tab-group fxFlex="1 1" [selectedIndex]="selectedTab" (selectedIndexChange)="onSelectedIndexChange($event)">
+      <mat-tab *ngFor="let tab of todo.tabs" label="{{ tab.name }}">
+        <div style="height: 100%" (swipeleft)="nextTab()" (swiperight)="prevTab()">
+          <app-todo-tab [tab]="tab"></app-todo-tab>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+</div>
