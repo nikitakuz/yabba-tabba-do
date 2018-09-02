@@ -1,5 +1,15 @@
 <mat-list>
-  <mat-list-item *ngFor="let item of tab.items">
-    <app-todo-tab-item [item]="item"></app-todo-tab-item>
+  <mat-list-item *ngFor="let item of tab.items; let i = index">
+    <app-todo-tab-item [item]="item" [editing]="editingItem === i"></app-todo-tab-item>
   </mat-list-item>
+  <mat-list-item *ngIf="editingItem === -1" class="add-item" (click)="addItem()">
+    <mat-icon matListIcon>add</mat-icon>
+    Item
+  </mat-list-item>
+<!--
+  <mat-list-item *ngIf="addingItem === true" class="new-item-name">
+    <mat-icon matListIcon>add</mat-icon>
+    <input matInput/>
+  </mat-list-item>
+-->
 </mat-list>

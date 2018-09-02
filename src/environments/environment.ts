@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyC3V6PtqkgYpyEpFl-AIzaSyC3V6PtqkgYpyEpFl-UV66FWuY5CqOuiMI',
+    apiKey: 'AIzaSyC3V6PtqkgYpyEpFl-UV66FWuY5CqOuiMI',
     authDomain: 'yabba-tabba-doo.firebaseapp.com',
     databaseURL: 'https://yabba-tabba-doo.firebaseio.com',
     projectId: 'yabba-tabba-doo',

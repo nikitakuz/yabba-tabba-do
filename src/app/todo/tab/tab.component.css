@@ -1,0 +1,7 @@
+.mat-list .mat-list-item.add-item {
+  color: rgba(0, 0, 0, 0.33);
+}
+
+.mat-list .mat-list-item.add-item .mat-list-icon {
+  padding-left: 0;
+}

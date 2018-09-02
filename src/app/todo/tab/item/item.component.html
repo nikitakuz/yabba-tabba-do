@@ -1,1 +1,9 @@
-<mat-checkbox>{{ item.name }}</mat-checkbox>
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+  <mat-checkbox></mat-checkbox>
+  <mat-form-field>
+    <input matInput
+           [formControl]="name"
+           (keyup.enter)="update()"
+           (blur)="update()"/>
+  </mat-form-field>
+</div>

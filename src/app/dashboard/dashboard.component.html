@@ -2,9 +2,9 @@
   <span>
     Yabba-tabba-do!
   </span>
-  <span class="flex"></span>
-  <button mat-icon-button>
-    <mat-icon>add</mat-icon>
+  <div fxFlex=""></div>
+  <button mat-icon-button matTooltip="Sign out.">
+    <mat-icon (click)="signOut()">logout</mat-icon>
   </button>
 </mat-toolbar>
 <mat-nav-list>
@@ -13,3 +13,6 @@
     {{ todo.name }}
   </mat-list-item>
 </mat-nav-list>
+<button class="add-todo-button" mat-fab>
+  <mat-icon (click)="addTodo()">add</mat-icon>
+</button>
