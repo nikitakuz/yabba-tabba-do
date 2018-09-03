@@ -9,9 +9,17 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   redirectUrl: string;
+  uid: string | null;
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {
     console.log('AuthService intitialized');
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.uid = user.uid;
+      } else {
+        this.uid = null;
+      }
+    });
   }
 
   getUser(): Observable<User | null> {

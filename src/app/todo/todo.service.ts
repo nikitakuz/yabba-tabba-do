@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable, of } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Todo } from './todo';
-import { TODOS } from '../mock-data';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -11,21 +11,34 @@ import { AuthService } from '../auth/auth.service';
 })
 export class TodoService {
 
-  constructor(private authService: AuthService, private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private authService: AuthService) { }
 
   getTodos(): Observable<Todo[]> {
-    return of(TODOS);
+    const uid = this.authService.uid;
+    const query = this.afs.collection('todos',
+        ref => ref.where('createdBy', '==', uid)
+    );
+    return query.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Todo;
+          const id = a.payload.doc.id;
+          return { $key: id, ...data };
+        });
+      })
+    );
   }
 
   getTodosCollection(): AngularFirestoreCollection<Todo> {
     return this.afs.collection<Todo>('todos');
   }
 
-  getTodo(id: number): Observable<Todo> {
-    return of(TODOS.find(todo => todo.id === id));
+  getTodo(uid: string): AngularFirestoreDocument<Todo> {
+    return this.afs.doc<Todo>('todos/' + uid);
   }
 
   addTodo(): void {
-    console.log('TODO: implement addTodo :-)');
+    const todo = { createdBy: this.authService.uid, name: '', tabs: [] };
+    this.getTodosCollection().add(todo);
   }
 }

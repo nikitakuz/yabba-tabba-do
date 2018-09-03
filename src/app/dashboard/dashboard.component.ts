@@ -1,10 +1,9 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
 import { TodoService } from '../todo/todo.service';
-import { TODOS } from '../mock-data';
 import { Todo } from '../todo/todo';
 import { slideRightLeftAnimation } from '../animations/animations';
 
@@ -25,23 +24,16 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  todos: Todo[] = TODOS;
-  private todosCollection: AngularFirestoreCollection<Todo>;
+  todos: Observable<Todo[]>;
 
   constructor(private sanitizer: DomSanitizer, private authService: AuthService, private todoService: TodoService) { }
 
   ngOnInit() {
-    this.getTodos();
-    this.todosCollection = this.todoService.getTodosCollection();
+    this.todos = this.todoService.getTodos();
   }
 
   signOut() {
     this.authService.signOut();
-  }
-
-  getTodos(): void {
-    this.todoService.getTodos()
-      .subscribe(todos => this.todos = todos);
   }
 
   addTodo(): void {

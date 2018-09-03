@@ -1,12 +1,13 @@
 import { TodoTab } from './tab/tab';
 
 export class Todo {
-  id: number;
+  $key?: string;
+  createdBy: string;
   name: string;
   tabs: TodoTab[];
 
-  constructor(id: number, name: string, tabs: TodoTab[]) {
-    this.id = id;
+  constructor(createdBy: string, name: string, tabs: TodoTab[]) {
+    this.createdBy = createdBy;
     this.name = name;
     this.tabs = tabs;
   }

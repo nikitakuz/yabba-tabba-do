@@ -1,10 +1,13 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { AngularFirestoreDocument } from 'angularfire2/firestore';
 
 import { Todo } from './todo';
 import { TodoService } from './todo.service';
 import { slideLeftRightAnimation } from '../animations/animations';
+import { TodoTab } from './tab/tab';
+import { TodoTabService } from './tab/tab.service';
 
 @Component({
   selector: 'app-todo',
@@ -19,29 +22,50 @@ export class TodoComponent implements OnInit {
   @HostBinding('style.width')     width = '100%';
   @HostBinding('style.height')    height = '100%';
 
-  @Input() todo: Todo;
+  @Input() todo: AngularFirestoreDocument<Todo>;
   @Input() selectedTab = 0;
+
+  todoId: string;
+  name = new FormControl('');
+  newTabName = new FormControl('');
+  tabs: TodoTab[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private todoService: TodoService,
-    private location: Location
+    private todoTabService: TodoTabService
   ) { }
 
   ngOnInit() {
-    this.getTodo();
+    this.todoId = this.route.snapshot.paramMap.get('id');
+    this.todo = this.todoService.getTodo(this.todoId);
+    this.todo.valueChanges().subscribe(todo => {
+      this.name.setValue(todo.name);
+      this.tabs = todo.tabs;
+    });
   }
 
-  getTodo(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.todoService.getTodo(id)
-      .subscribe(todo => this.todo = todo);
+  updateName() {
+    this.todo.
+      update({ name: this.name.value }).
+      catch(function(reason) {
+        throw reason;
+      });
+  }
+
+  createNewTab() {
+    this.todoTabService.addTab(this.todoId, this.newTabName.value).then(function(tab) {
+      debugger;
+      // TODO figure out what to do here
+    });
   }
 
   nextTab() {
-    if (this.selectedTab < this.todo.tabs.length - 1) {
-      this.selectedTab++;
-    }
+    this.todo.valueChanges().subscribe(todo => {
+      if (this.selectedTab < todo.tabs.length - 1) {
+        this.selectedTab++;
+      }
+    });
   }
 
   prevTab() {

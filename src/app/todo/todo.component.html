@@ -1,17 +1,29 @@
 <div fxLayout="column" style="height: 100%">
-    <mat-toolbar>
-      <button mat-icon-button routerLink="/dashboard">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <h2>
-        {{ todo.name }}
-      </h2>
-    </mat-toolbar>
+  <mat-toolbar>
+    <button mat-icon-button routerLink="/dashboard">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>
+      <mat-form-field>
+        <input matInput [formControl]="name" (blur)="updateName()"/>
+      </mat-form-field>
+    </h2>
+  </mat-toolbar>
+  <div *ngIf="tabs.length === 0">
+    Tabs length zero yo
+    <input matInput
+           placeholder="New Tab Name"
+           [formControl]="newTabName"
+           (keyup.enter)="createNewTab()"/>
+    <div *ngIf="newTabName.value.length > 0">Hit Enter, Birch</div>
+  </div>
+  <div *ngIf="tabs.length > 0">
     <mat-tab-group fxFlex="1 1" [selectedIndex]="selectedTab" (selectedIndexChange)="onSelectedIndexChange($event)">
-      <mat-tab *ngFor="let tab of todo.tabs" label="{{ tab.name }}">
+      <mat-tab *ngFor="let tab of tabs" label="{{ tab.name }}">
         <div style="height: 100%" (swipeleft)="nextTab()" (swiperight)="prevTab()">
           <app-todo-tab [tab]="tab"></app-todo-tab>
         </div>
       </mat-tab>
     </mat-tab-group>
+  </div>
 </div>

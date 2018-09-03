@@ -8,9 +8,9 @@
   </button>
 </mat-toolbar>
 <mat-nav-list>
-  <mat-list-item *ngFor="let todo of todos"
-                 routerLink="/todo/{{todo.id}}">
-    {{ todo.name }}
+  <mat-list-item *ngFor="let todo of todos | async"
+                 routerLink="/todo/{{todo.$key}}">
+    {{ todo.name !== '' ? todo.name : 'Untitled' }}
   </mat-list-item>
 </mat-nav-list>
 <button class="add-todo-button" mat-fab>
